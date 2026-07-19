@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-deep-navy: #030712;
-            --gradient-dark: linear-gradient(180deg, #030712 0%, #010206 100%);
+            /* SES Inspired Color Palette (No solid black) */
+            --bg-base: #0a1128;
+            --gradient-ses: linear-gradient(135deg, #0a1128 0%, #101f42 50%, #070c1e 100%);
             --accent-cyan: #00f2fe;
-            --accent-blue: #4facfe;
-            --glow-color: rgba(0, 242, 254, 0.6);
-            --text-light: #f8fafc;
+            --accent-blue: #0072ff;
+            --accent-purple: #7f00ff;
+            --text-light: #e2e8f0;
             --text-muted: #94a3b8;
-            --glass-bg: rgba(6, 11, 25, 0.75);
+            --glass-card: rgba(16, 29, 66, 0.55);
             --glass-border: rgba(0, 242, 254, 0.2);
+            --neon-glow: 0 0 20px rgba(0, 242, 254, 0.4);
         }
 
         * {
@@ -27,11 +29,25 @@
         }
 
         body {
-            background: var(--gradient-dark);
+            background: var(--gradient-ses);
             color: var(--text-light);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* SES Style Grid Overlay & Background Canvas */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+            pointer-events: none;
         }
 
         #bg-canvas {
@@ -40,52 +56,72 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 2;
             pointer-events: none;
+        }
+
+        /* Announcement Ticker Ticker */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            z-index: 110;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        .ticker-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 25s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
         }
 
         .app-container {
             position: relative;
-            z-index: 2;
+            z-index: 10;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header & Logo with Glowing Effect */
+        /* Navigation Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(14px);
+            padding: 18px 30px;
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 20px;
             margin-bottom: 40px;
             position: sticky;
             top: 20px;
             z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
-            letter-spacing: 1.5px;
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 12px var(--glow-color));
-            animation: logoGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            from { filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5)); }
-            to { filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.9)); }
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5));
         }
 
         nav ul {
@@ -98,19 +134,19 @@
             color: var(--text-light);
             text-decoration: none;
             font-weight: 600;
+            font-size: 15px;
             transition: 0.3s;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         nav a:hover {
             color: var(--accent-cyan);
-            filter: drop-shadow(0 0 8px var(--accent-cyan));
+            text-shadow: var(--neon-glow);
         }
 
         .btn-whatsapp {
             background: #25d366;
             color: white;
-            padding: 10px 24px;
+            padding: 10px 22px;
             border-radius: 30px;
             text-decoration: none;
             display: flex;
@@ -118,69 +154,69 @@
             gap: 8px;
             font-weight: 700;
             transition: 0.3s;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
         .btn-whatsapp:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
         }
 
-        /* Sections General styling */
+        /* Sections Structural Style */
         section {
-            padding: 60px 30px;
+            padding: 60px 35px;
             margin-bottom: 40px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(14px);
+            background: var(--glass-card);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
         .section-title {
-            font-size: 36px;
+            font-size: 34px;
             margin-bottom: 40px;
             text-align: center;
             font-weight: 800;
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            background: linear-gradient(45deg, #00f2fe, #0072ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.4));
+            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
         }
 
-        /* Hero Section layout */
+        /* Hero Landing */
         .hero-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 40px;
             align-items: center;
             background: transparent;
             border: none;
             backdrop-filter: none;
-            padding: 40px 10px;
+            padding: 20px 10px;
             box-shadow: none;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .hero-section { grid-template-columns: 1fr; text-align: center; }
             nav { display: none; }
             .cta-buttons { justify-content: center; }
-            .profile-card { flex-direction: column; text-align: center; }
+            .profile-card { flex-direction: column; text-align: center; margin: 0 auto; }
+            .registration-container { grid-template-columns: 1fr !with-card; }
         }
 
         .hero-text h1 {
-            font-size: 52px;
+            font-size: 54px;
             margin-bottom: 20px;
             line-height: 1.2;
             font-weight: 800;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         .hero-text h1 span {
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px var(--glow-color));
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
         }
 
         .hero-text p {
@@ -193,14 +229,14 @@
         .cta-buttons { display: flex; gap: 15px; }
 
         .btn-primary {
-            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
-            color: #030712;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
+            color: #0a1128;
             padding: 14px 32px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
             transition: 0.3s;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
         }
 
         .btn-secondary {
@@ -212,49 +248,37 @@
             text-decoration: none;
             font-weight: 700;
             transition: 0.3s;
-            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.1);
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover, .btn-secondary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.8);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            background: rgba(0, 242, 254, 0.1);
             box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
         }
 
-        /* Highly Glowing Profile Card */
+        /* Clean Profile Card (No SES text) */
         .profile-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
+            background: rgba(16, 35, 78, 0.85);
             border: 2px solid var(--accent-cyan);
             border-radius: 24px;
-            padding: 35px;
+            padding: 30px;
             display: flex;
             align-items: center;
-            gap: 25px;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.25), inset 0 0 15px rgba(0, 242, 254, 0.1);
-            transition: 0.4s;
+            gap: 20px;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            transition: 0.3s;
         }
 
         .profile-card:hover {
-            box-shadow: 0 0 45px rgba(0, 242, 254, 0.5);
-            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);
         }
 
         .profile-img-container {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 4px solid var(--accent-cyan);
+            border: 3px solid var(--accent-cyan);
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 25px var(--accent-cyan);
+            box-shadow: 0 0 15px var(--accent-cyan);
         }
 
         .profile-img-container img {
@@ -263,22 +287,20 @@
             object-fit: cover;
         }
 
-        .profile-info h3 { font-size: 26px; margin-bottom: 6px; font-weight: 800; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .profile-info p { color: var(--accent-cyan); font-size: 16px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .profile-info h3 { font-size: 24px; margin-bottom: 4px; font-weight: 800; }
+        .profile-info p { color: var(--accent-cyan); font-size: 15px; font-weight: 700; margin-bottom: 10px; }
         
         .tag {
-            background: rgba(0, 242, 254, 0.15);
-            color: var(--text-light);
-            padding: 6px 16px;
+            background: rgba(0, 242, 254, 0.1);
+            color: white;
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
-            display: inline-block;
             border: 1px solid var(--accent-cyan);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
         }
 
-        /* Glowing Grid Layout for Cards */
+        /* Cards Grid Config */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -287,36 +309,118 @@
 
         .card {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 16px;
             padding: 30px;
-            transition: 0.4s ease;
+            transition: 0.4s;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--accent-cyan);
-            background: rgba(0, 242, 254, 0.03);
-            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
         }
 
         .card h3 {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             font-size: 22px;
-            font-weight: 700;
             color: var(--text-light);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .card h3 i { 
-            color: var(--accent-cyan); 
-            filter: drop-shadow(0 0 6px var(--accent-cyan));
-        }
-        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+        .card h3 i { color: var(--accent-cyan); }
+        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
 
-        /* Pakistani Students Gallery Section styling */
+        /* Timetable Schedule Table Features */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.01);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .schedule-table th, .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .schedule-table th {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .schedule-table tr:hover td {
+            background: rgba(0, 242, 254, 0.03);
+        }
+
+        /* Registration Desk Layout Block (Form + Scan QR) */
+        .registration-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 800px) {
+            .registration-container { grid-template-columns: 1fr; }
+        }
+
+        .registration-form-block {
+            background: rgba(255,255,255,0.01);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .scan-box-wrapper {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 242, 254, 0.03);
+            border: 2px dashed var(--accent-cyan);
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.05);
+        }
+
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+            border: 4px solid #fff;
+        }
+
+        .qr-placeholder i { font-size: 100px; color: #0a1128; }
+
+        /* Gallery System Layout */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -328,84 +432,68 @@
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--glass-border);
-            height: 220px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-
-        .gallery-item:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            height: 210px;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.6s;
+            transition: 0.5s;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
-        }
-
+        .gallery-item:hover img { transform: scale(1.06); }
         .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(transparent, rgba(3, 7, 18, 0.95));
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(10, 17, 40, 0.95));
             color: var(--text-light);
             font-size: 15px;
             font-weight: 600;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
 
-        /* Contact Section and Form Input design */
+        /* Contact Box Elements */
         .contact-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
-        @media (max-width: 768px) {
-            .contact-container { grid-template-columns: 1fr; }
-        }
-
-        .contact-info p {
-            margin-bottom: 20px;
-            font-size: 16px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .contact-info p i { color: var(--accent-cyan); filter: drop-shadow(0 0 5px var(--accent-cyan)); }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 14px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: white;
-            outline: none;
-            font-size: 15px;
+        .contact-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
             transition: 0.3s;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .contact-card:hover {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-            background: rgba(255,255,255,0.06);
+            transform: translateY(-4px);
         }
+
+        .contact-card i {
+            font-size: 32px;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px var(--accent-cyan));
+        }
+
+        .contact-card a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover { color: var(--accent-cyan); }
 
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 30px;
             color: var(--text-muted);
             font-size: 14px;
             border-top: 1px solid var(--glass-border);
@@ -416,42 +504,51 @@
 </head>
 <body>
 
-    <!-- Dynamic Molecular Particle Canvas -->
+    <!-- SES Inspired Background Grid System Layer -->
+    <div class="bg-grid"></div>
     <canvas id="bg-canvas"></canvas>
 
+    <!-- News and Announcements Bar -->
+    <div class="announcement-bar">
+        <div class="ticker-text">
+            🔥 Admissions Open for New Session 2026! | 🚀 Matric, Intermediate & Test Preparation Batches Starting Soon! | 📚 Free Chapter-Wise PDF Notes Available for Download!
+        </div>
+    </div>
+
     <div class="app-container">
-        <!-- Navigation Menu -->
+        <!-- Site Header Menu Layout -->
         <header>
             <div class="logo">
-                <i class="fa-solid fa-vial-virus"></i> APEX CHEMISTRY
+                <i class="fa-solid fa-flask-vial"></i> APEX ACADEMY
             </div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#courses">Courses</a></li>
-                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#register">Register</a></li>
                     <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <a href="https://wa.me/923000000000" class="btn-whatsapp" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp Us
+            <a href="https://wa.me/923423672471" class="btn-whatsapp" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Chat
             </a>
         </header>
 
-        <!-- Main Dashboard Home Area -->
+        <!-- Home Section Frame -->
         <section id="home" class="hero-section">
             <div class="hero-text">
                 <h1>Master Chemistry <br>with <span>Confidence</span></h1>
                 <p>Concept-Based Chemistry Learning perfectly structured for Board and Competitive Examinations.</p>
                 <div class="cta-buttons">
-                    <a href="#courses" class="btn-primary">Explore Courses</a>
-                    <a href="#notes" class="btn-secondary">Free Notes</a>
+                    <a href="#register" class="btn-primary">Register Now</a>
+                    <a href="#courses" class="btn-secondary">View Courses</a>
                 </div>
             </div>
 
-            <!-- Glowing Profile Dashboard Component -->
+            <!-- Dashboard Custom Profile Component (No SES Text) -->
             <div class="profile-card">
                 <div class="profile-img-container">
                     <img src="https://i.ibb.co/ksYpD8Sf/image.jpg" alt="Sir Nasarullah">
@@ -464,15 +561,15 @@
             </div>
         </section>
 
-        <!-- Institute Profile Overview Section -->
+        <!-- About Academic Profile -->
         <section id="about">
             <h2 class="section-title">About Apex Academy</h2>
-            <p style="line-height: 1.9; color: var(--text-muted); text-align: center; max-width: 850px; margin: 0 auto; font-size: 16px;">
+            <p style="line-height: 1.9; color: var(--text-muted); text-align: center; max-width: 900px; margin: 0 auto; font-size: 16px;">
                 Apex Academy Chemistry is dedicated to providing high-quality, concept-based education. Led by Sir Nasarullah, our mission is to simplify complex chemical equations, reaction mechanisms, and core concepts, enabling students to secure top grades in their academic journeys.
             </p>
         </section>
 
-        <!-- Academic Offerings Grid -->
+        <!-- Main Course Distribution Grid System -->
         <section id="courses">
             <h2 class="section-title">Our Featured Courses</h2>
             <div class="grid-container">
@@ -491,22 +588,88 @@
             </div>
         </section>
 
-        <!-- Educational Library and Resources -->
-        <section id="notes">
-            <h2 class="section-title">Study Resources & Notes</h2>
-            <div class="grid-container">
-                <div class="card">
-                    <h3><i class="fa-regular fa-file-pdf"></i> Chapter-wise PDF Notes</h3>
-                    <p>Beautifully structured, easy-to-understand chemistry notes with complete definitions, mechanisms, and important long/short questions.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-clipboard-list"></i> Past Paper Solutions</h3>
-                    <p>Step-by-step solved papers from previous board exams to help you understand the exact paper pattern and scoring criteria.</p>
-                </div>
+        <!-- Academic Batch Timing Schedule Matrix Feature -->
+        <section id="schedule">
+            <h2 class="section-title">Batch Schedule & Timings</h2>
+            <div style="overflow-x: auto;">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Course Level</th>
+                            <th>Days Config</th>
+                            <th>Timing Class</th>
+                            <th>Status Module</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Matric Classes (9th / 10th)</strong></td>
+                            <td>Monday, Wednesday, Friday</td>
+                            <td>04:00 PM - 05:30 PM</td>
+                            <td style="color: var(--accent-cyan);">Admissions Open</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Intermediate (11th / 12th)</strong></td>
+                            <td>Tuesday, Thursday, Saturday</td>
+                            <td>05:30 PM - 07:00 PM</td>
+                            <td style="color: var(--accent-cyan);">Admissions Open</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MDCAT / ECAT Prep Desk</strong></td>
+                            <td>Sunday Special Sessions</td>
+                            <td>10:00 AM - 01:00 PM</td>
+                            <td style="color: var(--accent-cyan);">New Batch Starting</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
-        <!-- Visual Learning Activities Showcase -->
+        <!-- Dual Mode Registration Desk Module (Form + QR Code Scan Desk) -->
+        <section id="register">
+            <h2 class="section-title">Registration Desk</h2>
+            <div class="registration-container">
+                
+                <!-- Online Form Element Slot -->
+                <div class="registration-form-block">
+                    <h3 style="margin-bottom: 20px; color: var(--accent-cyan); font-weight: 700;">Fill Admission Form</h3>
+                    <form onsubmit="event.preventDefault(); alert('Registration Request Submitted Successfully! Sir Nasarullah will contact you soon.');">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter student name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number (WhatsApp)</label>
+                            <input type="tel" placeholder="e.g. 03423672471" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Course Level</label>
+                            <select required>
+                                <option value="">Choose your batch...</option>
+                                <option value="matric">Matric (9th / 10th)</option>
+                                <option value="inter">Intermediate (11th / 12th)</option>
+                                <option value="entry">MDCAT / ECAT Entrance</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary" style="border: none; width: 100%; cursor: pointer; margin-top: 10px;">Submit Form</button>
+                    </form>
+                </div>
+
+                <!-- QR Code Scan Section Panel -->
+                <div class="scan-box-wrapper">
+                    <h3 style="color: #fff; font-weight: 700; margin-bottom: 10px;">Scan to Register Quickly</h3>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">Scan this QR code using WhatsApp or camera scanner to directly chat or connect with us instantly.</p>
+                    <div class="qr-placeholder">
+                        <!-- Icon Placeholder for QR. Replace image source when needed -->
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <span style="font-size: 12px; letter-spacing: 1px; font-weight: bold; color: var(--accent-cyan);">APEX DESK SCANNER</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Student Gallery Showcase Panel Area -->
         <section id="gallery">
             <h2 class="section-title">Student Gallery & Activities</h2>
             <div class="gallery-grid">
@@ -529,39 +692,39 @@
             </div>
         </section>
 
-        <!-- Student Inquiry Support Module -->
+        <!-- Direct Identity Contacts Base Information Section -->
         <section id="contact">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">Direct Connect Desk</h2>
             <div class="contact-container">
-                <div class="contact-info">
-                    <h3 style="margin-bottom: 20px; font-size: 22px;">Contact Information</h3>
-                    <p><i class="fa-solid fa-location-dot"></i> Karachi, Sindh, Pakistan</p>
-                    <p><i class="fa-solid fa-envelope"></i> contact@apexchemistry.com</p>
-                    <p><i class="fa-solid fa-phone"></i> +92 300 0000000</p>
-                    <p style="margin-top: 25px; line-height: 1.6;">Have questions or want to register for upcoming batches? Drop us a message or click the WhatsApp button to connect instantly.</p>
+                
+                <div class="contact-card">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <h4>Call Support</h4>
+                    <p style="margin-top: 8px;"><a href="tel:+923423672471">+92 342 3672471</a></p>
                 </div>
-                <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="4" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="border: none; cursor: pointer; width: 100%;">Send Message</button>
-                </form>
+
+                <div class="contact-card">
+                    <i class="fa-brands fa-whatsapp-square"></i>
+                    <h4>WhatsApp Hub</h4>
+                    <p style="margin-top: 8px;"><a href="https://wa.me/923423672471" target="_blank">Chat with Instructor</a></p>
+                </div>
+
+                <div class="contact-card">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <h4>Email Dispatch</h4>
+                    <p style="margin-top: 8px;"><a href="mailto:nasarullahboohar804@gmail.com">nasarullahboohar804@gmail.com</a></p>
+                </div>
+
             </div>
         </section>
 
-        <!-- Copyright Info Content -->
+        <!-- Site Base Footer -->
         <footer>
             &copy; 2026 Apex Academy Chemistry. All Rights Reserved.
         </footer>
     </div>
 
-    <!-- Enhanced Luminous Fluid Simulation Grid Script -->
+    <!-- SES Inspired Smooth Floating Organic Molecule Network Script -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -574,13 +737,16 @@
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        for (let i = 0; i < 80; i++) {
+        const maxParticles = 65;
+        const connectionDist = 120;
+
+        for (let i = 0; i < maxParticles; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 2.5 + 0.5,
-                speedX: (Math.random() - 0.5) * 0.35,
-                speedY: (Math.random() - 0.5) * 0.35
+                radius: Math.random() * 2 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3
             });
         }
 
@@ -589,21 +755,32 @@
             
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
-                
-                // Drawing molecular items with sharp glow
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.3)';
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = '#00f2fe';
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
                 ctx.fill();
-                ctx.shadowBlur = 0; // Resetting fluid shadow for code speed
 
                 p.x += p.speedX;
                 p.y += p.speedY;
 
                 if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
                 if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDist) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.12 * (1 - dist / connectionDist)})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
             }
             requestAnimationFrame(animate);
         }
