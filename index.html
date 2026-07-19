@@ -4,145 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apex Academy | Chemistry Excellence</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* SES-Style Theme */
         :root {
-            --bg-body: #05070a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --accent: #00f2fe;
+            --bg-body: #0f172a;
+            --bg-gradient: radial-gradient(circle at 50% -20%, #1e293b 0%, #020617 80%);
+            --glass-bg: rgba(30, 41, 59, 0.5);
+            --border-glow: rgba(56, 189, 248, 0.4);
+            --accent-cyan: #06b6d4;
+            --text-main: #f1f5f9;
         }
 
         body {
-            background-color: var(--bg-body);
-            color: #fff;
-            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
+        .main-wrapper {
+            width: 90%;
+            max-width: 850px;
+            padding: 40px;
         }
 
-        .wrapper { max-width: 900px; margin: auto; padding: 50px 20px; }
-
-        /* SES Logo Style */
-        .logo {
-            font-size: 32px;
-            font-weight: 900;
+        .brand {
             text-align: center;
             margin-bottom: 50px;
-            background: linear-gradient(90deg, #fff, var(--accent));
+        }
+
+        .brand h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Glass Cards */
-        .glass {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
+        .glass-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        h3 { color: var(--accent-cyan); margin-bottom: 20px; font-size: 1.2rem; }
 
         input, select {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            padding: 14px;
+            border-radius: 12px;
             color: white;
+            margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
-        .neon-btn {
-            background: var(--accent);
-            color: #000;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+        button {
             width: 100%;
+            background: var(--accent-cyan);
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .neon-btn:hover { box-shadow: 0 0 20px var(--accent); }
+        button:hover { filter: brightness(1.2); }
 
-        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .qr-box {
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #334155;
+        }
+
+        @media (max-width: 700px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
-
-    <div class="wrapper">
-        <div class="logo">APEX ACADEMY</div>
-
-        <div class="glass" style="text-align:center;">
-            <h1>Chemistry Excellence</h1>
-            <p style="color:#aaa;">Professional coaching for 9th to 12th Grade.</p>
+    <div class="main-wrapper">
+        <div class="brand">
+            <h1>APEX ACADEMY</h1>
+            <p style="color: var(--accent-cyan); font-weight: 600;">CHEMISTRY EXCELLENCE</p>
         </div>
 
-        <div class="split">
-            <div class="glass">
-                <h3><i class="fa-solid fa-pen"></i> Admission Form</h3>
-                <form action="https://formsubmit.co/nasarullahboohar804@gmail.com" method="POST">
-                    <input type="text" name="name" placeholder="Name" required>
-                    <input type="tel" name="phone" placeholder="WhatsApp" required>
-                    <select name="class"><option>9th</option><option>10th</option><option>11th</option><option>12th</option></select>
-                    <button type="submit" class="neon-btn">Submit Application</button>
-                </form>
+        <div class="glass-container">
+            <div class="grid-layout">
+                <!-- Admission Form -->
+                <div>
+                    <h3>Admission Form</h3>
+                    <form action="https://formsubmit.co/nasarullahboohar804@gmail.com" method="POST">
+                        <input type="text" name="name" placeholder="Student Name" required>
+                        <input type="tel" name="phone" placeholder="WhatsApp Number" required>
+                        <select name="class">
+                            <option>9th Grade</option>
+                            <option>10th Grade</option>
+                            <option>11th Grade</option>
+                            <option>12th Grade</option>
+                        </select>
+                        <button type="submit">Submit Application</button>
+                    </form>
+                </div>
+
+                <!-- QR Scan Desk -->
+                <div class="qr-box">
+                    <h3>Scan to Chat</h3>
+                    <div style="background:white; padding:10px; border-radius:12px; display:inline-block;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923423672471" style="display:block;">
+                    </div>
+                </div>
             </div>
 
-            <div class="glass" style="text-align:center;">
-                <h3><i class="fa-solid fa-qrcode"></i> Scan to Chat</h3>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923423672471" style="width:150px; background:white; padding:5px; border-radius:10px; margin-top:10px;">
+            <div style="margin-top:40px; border-top:1px solid #334155; padding-top:30px;">
+                <h3>Resources</h3>
+                <p style="color:#94a3b8;">Free PDF Notes: <span style="color:var(--accent-cyan)">Available Soon</span></p>
             </div>
-        </div>
-
-        <div class="glass">
-            <h3><i class="fa-solid fa-file-pdf"></i> Resources</h3>
-            <p>Free PDF Notes: <b style="color:var(--accent);">Available Soon</b></p>
         </div>
     </div>
 
-    <script>
-        /* SES-Style Particle Animation */
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<100; i++) particles.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, sx: Math.random()-0.5, sy: Math.random()-0.5});
-        }
-        
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "#00f2fe";
-            particles.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
-                ctx.fill();
-                p.x += p.sx; p.y += p.sy;
-                if(p.x<0 || p.x>canvas.width) p.sx*=-1;
-                if(p.y<0 || p.y>canvas.height) p.sy*=-1;
-            });
-            requestAnimationFrame(draw);
-        }
-        init(); draw();
-    </script>
 </body>
 </html>
