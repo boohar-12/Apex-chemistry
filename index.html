@@ -4,291 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apex Academy Chemistry | Sir Nasarullah</title>
-    <meta name="description" content="Concept-Based Chemistry Learning for School & College Students by Sir Nasarullah (BS Chemistry). Master chemistry with confidence.">
-    <meta name="keywords" content="Apex Academy Chemistry, Sir Nasarullah, Chemistry Teacher Pakistan, Online Chemistry Notes, Class 9, Class 10, First Year, Second Year Chemistry">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* ==========================================================================
-           1. SETUP & THEME VARIABLES
-           ========================================================================== */
         :root {
-            --bg-deep-navy: #0a0f1d;
-            --bg-card-glass: rgba(16, 24, 48, 0.65);
-            --border-glass: rgba(0, 242, 254, 0.15);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --primary-cyan: #00f2fe;
-            --primary-blue: #4facfe;
-            --accent-glow: rgba(0, 242, 254, 0.4);
-            --gradient-premium: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            --gradient-dark: linear-gradient(180deg, #0a0f1d 0%, #070a14 100%);
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-heading: 'Space Grotesk', sans-serif;
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-deep-navy: #050811;
+            --gradient-dark: linear-gradient(180deg, #050811 0%, #02040a 100%);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(10, 25, 47, 0.7);
+            --glass-border: rgba(0, 242, 254, 0.15);
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep-navy);
-            background-image: var(--gradient-dark);
-            color: var(--text-primary);
-            font-family: var(--font-main);
+            background: var(--gradient-dark);
+            color: var(--text-light);
+            min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
+            position: relative;
         }
 
-        /* Utility Class for Glow Text */
-        .text-glow {
-            text-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        /* ==========================================================================
-           2. INTERACTIVE BACKGROUND (CANVAS)
-           ========================================================================== */
         #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
         }
 
-        /* ==========================================================================
-           3. NAVBAR
-           ========================================================================== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 5%;
-            z-index: 1000;
-            background: rgba(10, 15, 29, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border-glass);
+        .app-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: var(--transition-smooth);
+            padding: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            margin-bottom: 40px;
         }
 
-        .navbar.scrolled {
-            padding: 15px 5%;
-            background: rgba(7, 10, 20, 0.9);
-        }
-
-        .logo-container {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        /* Custom Premium SVG Logo Element */
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            position: relative;
-        }
-
-        .logo-text {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
-        }
-
-        .logo-text span {
-            background: var(--gradient-premium);
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
+        nav ul {
             display: flex;
-            gap: 25px;
             list-style: none;
-            align-items: center;
+            gap: 20px;
         }
 
-        .nav-links a {
+        nav a {
+            color: var(--text-light);
             text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
             font-weight: 500;
-            transition: var(--transition-smooth);
-            position: relative;
-            padding: 5px 0;
+            transition: 0.3s;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-cyan);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-premium);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
+        nav a:hover {
+            color: var(--accent-cyan);
         }
 
         .btn-whatsapp {
             background: #25d366;
-            color: #fff !important;
-            padding: 10px 20px !important;
-            border-radius: 50px;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-weight: 600 !important;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            font-weight: 600;
+            transition: 0.3s;
         }
 
         .btn-whatsapp:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
         }
 
-        .btn-whatsapp::after {
-            display: none !important;
-        }
-
-        .menu-toggle {
-            display: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ==========================================================================
-           4. HERO SECTION
-           ========================================================================== */
-        .hero {
-            min-height: 100vh;
-            padding: 140px 5% 60px 5%;
+        .hero-section {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
-            position: relative;
-            z-index: 1;
+            align-items: center;
+            padding: 40px 20px;
         }
 
-        .hero-content {
-            max-width: 750px;
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            nav { display: none; }
         }
 
-        .hero-content h1 {
-            font-family: var(--font-heading);
-            font-size: 3.8rem;
-            font-weight: 800;
-            line-height: 1.15;
+        .hero-text h1 {
+            font-size: 48px;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
 
-        .hero-content h1 span {
-            background: var(--gradient-premium);
+        .hero-text h1 span {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-content p {
-            color: var(--text-secondary);
-            font-size: 1.25rem;
-            margin-bottom: 35px;
-            font-weight: 400;
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 30px;
         }
 
-        .hero-buttons {
+        .cta-buttons {
             display: flex;
-            flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 40px;
         }
 
-        .btn-premium {
-            background: var(--gradient-premium);
-            color: #070a14;
-            padding: 14px 28px;
+        @media (max-width: 768px) {
+            .cta-buttons { justify-content: center; }
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            color: #050811;
+            padding: 12px 28px;
             border-radius: 8px;
-            font-weight: 600;
             text-decoration: none;
-            transition: var(--transition-smooth);
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.25);
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .btn-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.45);
-        }
-
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-primary);
-            padding: 14px 28px;
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--glass-border);
+            padding: 12px 28px;
             border-radius: 8px;
-            font-weight: 600;
             text-decoration: none;
-            transition: var(--transition-smooth);
-            border: 1px solid var(--border-glass);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
-        .btn-outline:hover {
-            background: rgba(0, 242, 254, 0.05);
-            border-color: var(--primary-cyan);
-            color: var(--primary-cyan);
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
         }
 
-        /* Profile Card Glassmorphism */
         .profile-card {
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 30px;
             display: flex;
             align-items: center;
             gap: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            max-width: 450px;
             position: relative;
             overflow: hidden;
         }
@@ -304,1172 +202,131 @@
             pointer-events: none;
         }
 
-        .profile-img-placeholder {
-            width: 90px;
-            height: 90px;
+        .profile-img-container {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid var(--primary-cyan);
+            border: 3px solid var(--accent-cyan);
+            padding: 0;
+            overflow: hidden;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: var(--primary-cyan);
-            flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .profile-info h3 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            margin-bottom: 4px;
+            font-size: 22px;
+            margin-bottom: 5px;
         }
 
         .profile-info p {
-            margin-bottom: 2px;
-            font-size: 0.95rem;
-        }
-
-        .badge-premium {
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid var(--primary-cyan);
-            color: var(--primary-cyan);
-            padding: 3px 10px;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            font-size: 14px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-top: 6px;
+            margin-bottom: 10px;
         }
 
-        /* Hero Animation Visual */
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .illustration-container {
-            width: 100%;
-            max-width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(7, 79, 254, 0.1) 0%, transparent 70%);
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Interactive CSS Lab Flask & Orbit */
-        .animated-flask {
-            font-size: 7rem;
-            background: var(--gradient-premium);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: floatFlask 4s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        .orbit-ring {
-            position: absolute;
-            border: 1px dashed rgba(0, 242, 254, 0.4);
-            border-radius: 50%;
-            animation: spin 15s linear infinite;
-        }
-
-        .ring-1 { width: 300px; height: 300px; transform: rotateX(70deg) rotateY(20deg); }
-        .ring-2 { width: 350px; height: 350px; transform: rotateX(60deg) rotateY(-30deg); animation-duration: 20s; }
-
-        @keyframes floatFlask {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
-        }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ==========================================================================
-           5. SECTION GENERAL STYLES
-           ========================================================================== */
-        section {
-            padding: 100px 5%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px auto;
-        }
-
-        .section-header h2 {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .section-header h2 span {
-            background: var(--gradient-premium);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* ==========================================================================
-           6. ABOUT SECTION
-           ========================================================================== */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-stats-box {
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .about-stats-box i {
-            font-size: 4rem;
-            background: var(--gradient-premium);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .about-text h3 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .about-text h3 span {
-            color: var(--primary-cyan);
-        }
-
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            font-size: 1.05rem;
-        }
-
-        .about-features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .about-feat-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.02);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .about-feat-card i {
-            color: var(--primary-cyan);
-            font-size: 1.2rem;
-        }
-
-        /* ==========================================================================
-           7. COURSES SECTION
-           ========================================================================== */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .glass-card {
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 35px 30px;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(0, 242, 254, 0.05) 0%, transparent 100%);
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 242, 254, 0.4);
-            box-shadow: 0 15px 35px rgba(0, 242, 254, 0.1);
-        }
-
-        .glass-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
+        .tag {
             background: rgba(0, 242, 254, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-cyan);
-            margin-bottom: 25px;
-        }
-
-        .glass-card h3 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-        }
-
-        .glass-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-            flex-grow: 1;
-        }
-
-        /* ==========================================================================
-           8. FREE NOTES, VIDEO LECTURES & MCQS (COMING SOON UX)
-           ========================================================================== */
-        .status-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid #f59e0b;
-            color: #f59e0b;
+            color: var(--accent-cyan);
             padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .btn-disabled {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-secondary);
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        /* ==========================================================================
-           9. WHY CHOOSE US
-           ========================================================================== */
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .why-card {
-            background: rgba(16, 24, 48, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            gap: 20px;
-            transition: var(--transition-smooth);
-        }
-
-        .why-card:hover {
-            border-color: var(--border-glass);
-            background: var(--bg-card-glass);
-        }
-
-        .why-card i {
-            font-size: 1.8rem;
-            color: var(--primary-cyan);
-            flex-shrink: 0;
-        }
-
-        .why-card h4 {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        .why-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* ==========================================================================
-           10. GALLERY (MASONRY)
-           ========================================================================== */
-        .gallery-masonry {
-            columns: 3 300px;
-            column-gap: 20px;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid var(--border-glass);
-            background: #101830;
-        }
-
-        .gallery-placeholder {
-            width: 100%;
-            background: linear-gradient(135deg, #16223f 0%, #0d1527 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            text-align: center;
-            color: var(--text-secondary);
-            transition: var(--transition-smooth);
-        }
-
-        /* Dynamic heights for professional masonry effect */
-        .h-small { min-height: 200px; }
-        .h-medium { min-height: 280px; }
-        .h-large { min-height: 360px; }
-
-        .gallery-placeholder i {
-            font-size: 2.5rem;
-            color: var(--primary-cyan);
-            margin-bottom: 15px;
-            opacity: 0.7;
-            transition: var(--transition-smooth);
-        }
-
-        .gallery-placeholder span {
-            font-family: var(--font-heading);
-            font-weight: 500;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-        }
-
-        .gallery-placeholder p {
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-
-        .gallery-item:hover .gallery-placeholder {
-            transform: scale(1.03);
-            background: linear-gradient(135deg, #1c2d55 0%, #101b33 100%);
-        }
-
-        .gallery-item:hover .gallery-placeholder i {
-            transform: translateY(-5px);
-            opacity: 1;
-            color: var(--primary-blue);
-        }
-
-        /* ==========================================================================
-           11. ADMISSIONS SECTION
-           ========================================================================== */
-        .admission-box {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05) 0%, rgba(7, 79, 254, 0.05) 100%);
-            border: 1px solid var(--border-glass);
-            border-radius: 30px;
-            padding: 60px 40px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .admission-box h3 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        .admission-box p {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 35px auto;
-            font-size: 1.1rem;
-        }
-
-        .admission-actions {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        /* ==========================================================================
-           12. CONTACT SECTION
-           ========================================================================== */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 50px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .contact-method {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .contact-method .icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 12px;
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: var(--primary-cyan);
-        }
-
-        .contact-method h5 {
-            font-family: var(--font-heading);
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-
-        .contact-method p {
-            color: var(--text-secondary);
-        }
-
-        .map-placeholder {
-            margin-top: 20px;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border-glass);
-            height: 200px;
-            background: #101830;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            gap: 10px;
-        }
-
-        .contact-form {
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .form-group label {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .form-group input, .form-group textarea {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-glass);
-            border-radius: 8px;
-            padding: 14px;
-            color: var(--text-primary);
-            font-family: var(--font-main);
-            font-size: 1rem;
-            transition: var(--transition-smooth);
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-cyan);
-            background: rgba(0, 242, 254, 0.02);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
-        }
-
-        /* ==========================================================================
-           13. PREMIUM FOOTER
-           ========================================================================== */
-        footer {
-            background: #060912;
-            border-top: 1px solid var(--border-glass);
-            padding: 80px 5% 30px 5%;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand p {
-            color: var(--text-secondary);
-            margin-top: 15px;
-            max-width: 350px;
-        }
-
-        .footer-links h4 {
-            font-family: var(--font-heading);
-            font-size: 1.15rem;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: var(--transition-smooth);
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-cyan);
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 30px;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* ==========================================================================
-           14. RESPONSIVE MEDIA QUERIES
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 160px;
-            }
-            .hero-content { margin: 0 auto; }
-            .hero-buttons { justify-content: center; }
-            .profile-card { margin: 0 auto; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .about-stats-box { max-width: 400px; margin: 0 auto; }
-        }
-
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .menu-toggle { display: block; }
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #0a0f1d;
-                border-bottom: 1px solid var(--border-glass);
-                flex-direction: column;
-                padding: 30px;
-                gap: 20px;
-                display: none;
-            }
-            .nav-links.active { display: flex; }
-            .footer-grid { grid-template-columns: 1fr; }
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            border: 1px solid rgba(0, 242, 254, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <!-- Particle Canvas Background -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <a href="#" class="logo-container">
-            <div class="logo-icon">
-                <!-- Premium Custom Vector Scientific Logo Element -->
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="44" stroke="url(#logoGlow)" stroke-width="3" stroke-dasharray="6 6"/>
-                    <path d="M35 75L45 40H30L65 25L55 60H70L35 75Z" fill="url(#logoGrad)"/>
-                    <defs>
-                        <linearGradient id="logoGrad" x1="30" y1="25" x2="70" y2="75" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#00f2fe"/>
-                            <stop offset="1" stop-color="#4facfe"/>
-                        </linearGradient>
-                        <linearGradient id="logoGlow" x1="6" y1="50" x2="94" y2="50" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#00f2fe" stop-opacity="0.3"/>
-                            <stop offset="1" stop-color="#4facfe" stop-opacity="0.3"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-flask-vial"></i> APEX CHEMISTRY
             </div>
-            <div class="logo-text">APEX<span>CHEMISTRY</span></div>
-        </a>
-        
-        <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
-        
-        <ul class="nav-links">
-            <li><a href="#" class="nav-item active">Home</a></li>
-            <li><a href="#about" class="nav-item">About</a></li>
-            <li><a href="#courses" class="nav-item">Courses</a></li>
-            <li><a href="#notes" class="nav-item">Free Notes</a></li>
-            <li><a href="#lectures" class="nav-item">Lectures</a></li>
-            <li><a href="#mcqs" class="nav-item">Online MCQs</a></li>
-            <li><a href="#gallery" class="nav-item">Gallery</a></li>
-            <li><a href="#admission" class="nav-item">Admissions</a></li>
-            <li><a href="#contact" class="nav-item">Contact</a></li>
-            <li><a href="https://wa.me/92342367241" target="_blank" class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
-        </ul>
-    </nav>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Notes</a></li>
+                </ul>
+            </nav>
+            <a href="https://wa.me/xxxxxxxxxx" class="btn-whatsapp" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+        </header>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1 class="text-glow">Master Chemistry <br>with <span>Confidence</span></h1>
-            <p>Concept-Based Chemistry Learning perfectly structured for Pakistani School and College Board Examinations.</p>
-            
-            <div class="hero-buttons">
-                <a href="#courses" class="btn-premium">Explore Courses <i class="fa-solid fa-arrow-right"></i></a>
-                <a href="#notes" class="btn-outline">Free Notes</a>
-                <a href="#mcqs" class="btn-outline">Online MCQs</a>
-                <a href="#admission" class="btn-premium" style="background: transparent; border: 1px solid var(--primary-cyan); color: var(--primary-cyan);">Admission</a>
+        <section class="hero-section">
+            <div class="hero-text">
+                <h1>Master Chemistry <br>with <span>Confidence</span></h1>
+                <p>Concept-Based Chemistry Learning perfectly structured for Board and Competitive Examinations.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary">Explore Courses</a>
+                    <a href="#" class="btn-secondary">Free Notes</a>
+                </div>
             </div>
 
-            <!-- Professional Profile Card -->
             <div class="profile-card">
-                <div class="profile-img-placeholder">
-                    <i class="fa-solid fa-user-tie"></i>
+                <div class="profile-img-container">
+                    <img src="https://i.ibb.co/ksYpD8Sf/image.jpg" alt="Sir Nasarullah">
                 </div>
                 <div class="profile-info">
                     <h3>Sir Nasarullah</h3>
-                    <p style="color: var(--primary-cyan); font-weight: 600;">BS Chemistry</p>
-                    <p style="color: var(--text-secondary);">Chemistry Instructor</p>
-                    <span class="badge-premium">Verified Expert</span>
+                    <p>BS Chemistry | Instructor</p>
+                    <span class="tag"><i class="fa-solid fa-shield-halved"></i> Scientific Excellence</span>
                 </div>
             </div>
-        </div>
+        </section>
+    </div>
 
-        <div class="hero-visual">
-            <div class="illustration-container">
-                <!-- Custom CSS Driven Laboratory Flask Representation -->
-                <i class="fa-solid fa-flask-vial animated-flask"></i>
-                <div class="orbit-ring ring-1"></div>
-                <div class="orbit-ring ring-2"></div>
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="about-grid">
-            <div class="about-stats-box">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3 style="font-size: 2.5rem; font-family: var(--font-heading); margin-bottom: 5px;">1 Year</h3>
-                <p style="color: var(--primary-cyan); font-weight: 600;">Teaching Experience</p>
-            </div>
-            <div class="about-text">
-                <h3>About <span>Sir Nasarullah</span></h3>
-                <p>Dedicated to simplifying complex molecular structures and chemical reactions, Sir Nasarullah provides high-tier, concept-driven academic training designed to unlock top results for students across matric and intermediate frameworks.</p>
-                
-                <div class="about-features-grid">
-                    <div class="about-feat-card"><i class="fa-solid fa-atom"></i> <span>Concept-Based Teaching</span></div>
-                    <div class="about-feat-card"><i class="fa-solid fa-lightbulb"></i> <span>Easy Learning Methods</span></div>
-                    <div class="about-feat-card"><i class="fa-solid fa-file-invoice"></i> <span>Rigorous Board Prep</span></div>
-                    <div class="about-feat-card"><i class="fa-solid fa-flask"></i> <span>Practical Insights</span></div>
-                    <div class="about-feat-card"><i class="fa-solid fa-comments"></i> <span>Interactive Learning</span></div>
-                    <div class="about-feat-card"><i class="fa-solid fa-handshake"></i> <span>Student Friendly Space</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses Section -->
-    <section id="courses">
-        <div class="section-header">
-            <h2>Our Premium <span>Academic Programs</span></h2>
-            <p>Systematically organized layouts built specifically to address the modern curriculum guidelines.</p>
-        </div>
-        <div class="grid-layout">
-            <div class="glass-card">
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <h3>Class 9 Chemistry</h3>
-                    <p>Building foundational concepts in atomic structure, chemical bonding, and physical states of matter.</p>
-                </div>
-                <a href="#contact" class="btn-outline" style="width: 100%; justify-content: center;">Learn More</a>
-            </div>
-            <div class="glass-card">
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-vial"></i></div>
-                    <h3>Class 10 Chemistry</h3>
-                    <p>Deep dive into organic chemistry, chemical equilibrium, environmental chemistry, and biochemistry processes.</p>
-                </div>
-                <a href="#contact" class="btn-outline" style="width: 100%; justify-content: center;">Learn More</a>
-            </div>
-            <div class="glass-card">
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-dna"></i></div>
-                    <h3>First Year Chemistry</h3>
-                    <p>Advanced study of stoichiometry, atomic spectrums, gas laws, liquid crystals, and chemical kinetics.</p>
-                </div>
-                <a href="#contact" class="btn-outline" style="width: 100%; justify-content: center;">Learn More</a>
-            </div>
-            <div class="glass-card">
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-burn"></i></div>
-                    <h3>Second Year Chemistry</h3>
-                    <p>Mastery of periodic trends, d-block transition coordinates, systematic functional organic structures, and industries.</p>
-                </div>
-                <a href="#contact" class="btn-outline" style="width: 100%; justify-content: center;">Learn More</a>
-            </div>
-            <div class="glass-card">
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-award"></i></div>
-                    <h3>Entry Test Chemistry</h3>
-                    <p>Specialized high-speed strategic preparation focused closely on medical and engineering admission tests.</p>
-                </div>
-                <a href="#contact" class="btn-outline" style="width: 100%; justify-content: center;">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Free Notes Section -->
-    <section id="notes">
-        <div class="section-header">
-            <h2>Free Comprehensive <span>Notes</span></h2>
-            <p>Premium structured reference materials developed to align perfectly with syllabus parameters.</p>
-        </div>
-        <div class="grid-layout">
-            <div class="glass-card">
-                <span class="status-badge">Coming Soon</span>
-                <div>
-                    <div class="card-icon"><i class="fa-regular fa-file-pdf"></i></div>
-                    <h3>Free Notes Portfolio</h3>
-                    <p>High-grade academic text solutions, definitions, and equations sets compiled neatly into downloadable PDFs.</p>
-                </div>
-                <button class="btn-premium btn-disabled" style="width: 100%; justify-content: center;"><i class="fa-solid fa-download"></i> Download</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Video Lectures Section -->
-    <section id="lectures">
-        <div class="section-header">
-            <h2>Video <span>Lectures</span></h2>
-            <p>High-definition cinematic visual breakdowns covering tricky topics and reaction pathways elegantly.</p>
-        </div>
-        <div class="grid-layout">
-            <div class="glass-card">
-                <span class="status-badge">Coming Soon</span>
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-video"></i></div>
-                    <h3>Video Learning Portal</h3>
-                    <p>Interactive conceptual animations, live board explanations, and problem-solving run-throughs.</p>
-                </div>
-                <div style="height: 45px;"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Online MCQs Section -->
-    <section id="mcqs">
-        <div class="section-header">
-            <h2>Online <span>MCQs Testing</span></h2>
-            <p>Interactive evaluation metrics deployed to test comprehension speed, precision, and concept retention rates.</p>
-        </div>
-        <div class="grid-layout">
-            <div class="glass-card">
-                <span class="status-badge">Coming Soon</span>
-                <div>
-                    <div class="card-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3>Practice Test Engines</h3>
-                    <p>Real-time mock examinations structured exactly matching board patterns to cultivate elite preparation.</p>
-                </div>
-                <div style="height: 45px;"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section id="why">
-        <div class="section-header">
-            <h2>Why <span>Apex Academy</span>?</h2>
-            <p>We combine highly focused scientific domain expertise with advanced structural education methods.</p>
-        </div>
-        <div class="why-grid">
-            <div class="why-card">
-                <i class="fa-solid fa-microscope"></i>
-                <div>
-                    <h4>Concept-Based Learning</h4>
-                    <p>Eliminating blind memorization by cultivating genuine absolute core comprehension of underlying laws.</p>
-                </div>
-            </div>
-            <div class="why-card">
-                <i class="fa-solid fa-signature"></i>
-                <div>
-                    <h4>Exam Preparation</h4>
-                    <p>Targeted feedback sheets engineered precisely to reflect checking parameters of standard exams.</p>
-                </div>
-            </div>
-            <div class="why-card">
-                <i class="fa-solid fa-cubes"></i>
-                <div>
-                    <h4>Interactive Teaching</h4>
-                    <p>Leveraging visual structural modules and live deductions to keep engagement metrics optimal.</p>
-                </div>
-            </div>
-            <div class="why-card">
-                <i class="fa-solid fa-file-lines"></i>
-                <div>
-                    <h4>Professional Notes</h4>
-                    <p>Clean, concise structural schemas built natively for effective revision intervals.</p>
-                </div>
-            </div>
-            <div class="why-card">
-                <i class="fa-solid fa-flask-vial"></i>
-                <div>
-                    <h4>Modern Chemistry Learning</h4>
-                    <p>Integrating chemical application models that connect classroom theory directly with global industries.</p>
-                </div>
-            </div>
-            <div class="why-card">
-                <i class="fa-solid fa-users"></i>
-                <div>
-                    <h4>Friendly Environment</h4>
-                    <p>An encouraging, accessible setup maximizing student confidence to ask complex questions freely.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery">
-        <div class="section-header">
-            <h2>Academic <span>Gallery</span></h2>
-            <p>A curated visual perspective into the modern educational environments and setups.</p>
-        </div>
-        <div class="gallery-masonry">
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-medium">
-                    <i class="fa-solid fa-children"></i>
-                    <span>Pakistani School Students</span>
-                    <p>Enthusiastic learners establishing early scientific foundations.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-large">
-                    <i class="fa-solid fa-user-graduate"></i>
-                    <span>Pakistani College Students</span>
-                    <p>Advanced higher secondary reference structures and testing.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-small">
-                    <i class="fa-solid fa-vials"></i>
-                    <span>Chemistry Laboratory</span>
-                    <p>Equipped workspace context for analytical validations.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-large">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <span>Science Classroom</span>
-                    <p>Collaborative physical structures optimizing learning flows.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-small">
-                    <i class="fa-solid fa-person-chalkboard"></i>
-                    <span>Teacher Explaining Chemistry</span>
-                    <p>Sir Nasarullah breaking down tricky functional mechanisms.</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder h-medium">
-                    <i class="fa-solid fa-flask-vial"></i>
-                    <span>Students Performing Experiments</span>
-                    <p>Active learning loops through physical data recording.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admission Section -->
-    <section id="admission">
-        <div class="admission-box">
-            <h3>Secure Your Seat Today</h3>
-            <p>Elevate your understanding and secure premium performance metrics in your upcoming Board Examinations.</p>
-            <div class="admission-actions">
-                <a href="#contact" class="btn-premium">Apply Now <i class="fa-solid fa-file-signature"></i></a>
-                <a href="https://wa.me/92342367241" target="_blank" class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Inquiry via WhatsApp</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="section-header">
-            <h2>Connect <span>With Us</span></h2>
-            <p>Reach out directly for class scheduling, admissions protocols, or general inquiries.</p>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-info">
-                <div>
-                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 5px;">Sir Nasarullah</h3>
-                    <p style="color: var(--primary-cyan); font-weight: 500; margin-bottom: 25px;">BS Chemistry | Principal Lead</p>
-                </div>
-
-                <div class="contact-method">
-                    <div class="icon"><i class="fa-regular fa-envelope"></i></div>
-                    <div>
-                        <h5>Official Email</h5>
-                        <p>nasarullahboohar804@gmail.com</p>
-                    </div>
-                </div>
-
-                <div class="contact-method">
-                    <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
-                    <div>
-                        <h5>WhatsApp Support</h5>
-                        <p>+92342367241</p>
-                    </div>
-                </div>
-
-                <div class="map-placeholder">
-                    <i class="fa-solid fa-location-dot" style="color: var(--primary-cyan); font-size: 1.5rem;"></i>
-                    <span>Karachi, Sindh, Pakistan Region Focus</span>
-                </div>
-            </div>
-
-            <!-- Professional Validated Contact Form -->
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you for connecting with Apex Academy. We will contact you shortly!');">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required placeholder="Enter your complete name">
-                </div>
-                <div class="form-group">
-                    <label for="student-email">Email Address</label>
-                    <input type="email" id="student-email" required placeholder="Enter your active email">
-                </div>
-                <div class="form-group">
-                    <label for="course-select">Program Select</label>
-                    <input type="text" id="course-select" placeholder="e.g., Class 11, Entry Test Prep">
-                </div>
-                <div class="form-group">
-                    <label for="msg">Message Details</label>
-                    <textarea id="msg" rows="5" required placeholder="How can we assist your learning trajectory?"></textarea>
-                </div>
-                <button type="submit" class="btn-premium" style="justify-content: center; width: 100%;">Transmit Message <i class="fa-solid fa-paper-plane"></i></button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Premium Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo-text" style="font-size: 1.5rem;">APEX<span>CHEMISTRY</span></div>
-                <p>An elite conceptual destination providing premium chemistry instruction for aspiring secondary and college students.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#notes">Notes Portfolio</a></li>
-                    <li><a href="#mcqs">MCQs Testing</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#admission">Admissions</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Support & Contact</h4>
-                <ul>
-                    <li><span style="color: var(--text-secondary);"><i class="fa-regular fa-envelope" style="color: var(--primary-cyan); margin-right: 8px;"></i> nasarullahboohar804@gmail.com</span></li>
-                    <li><span style="color: var(--text-secondary);"><i class="fa-brands fa-whatsapp" style="color: #25d366; margin-right: 8px;"></i> +92342367241</span></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Apex Academy Chemistry. Built for Professional Scientific Excellence.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript for Interactions and Live Scientific Background Particles -->
     <script>
-        /* ==========================================================================
-           MOBILE MENU SYSTEM
-           ========================================================================== */
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close links on smooth clicks
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        /* ==========================================================================
-           SCROLL MECHANICS & ACTIVE STATES
-           ========================================================================== */
-        const navbar = document.querySelector('.navbar');
-        const sections = document.querySelectorAll('section, header');
-        const navItems = document.querySelectorAll('.nav-item');
-
-        window.addEventListener('scroll', () => {
-            // Header transition
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-
-            // Highlighting active section links dynamically
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id') || '';
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href').slice(1) === current || (item.getAttribute('href') === '#' && current === '')) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        /* ==========================================================================
-           MATTER-LIKE SCIENTIFIC PARTICLE CANVAS SYSTEM
-           ========================================================================== */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
-        let particlesArray = [];
-        const numberOfParticles = 45;
-
-        // Resize handling
-        function initCanvas() {
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        initCanvas();
-        window.addEventListener('resize', initCanvas);
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-        // Particle blueprints representing molecular nodes
-        class ScienceParticle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.5 + 1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Loop borders seamlessly
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        const particles = [];
+        for (let i = 0; i < 60; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 0.5,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3
+            });
         }
 
-        function setupParticles() {
-            particlesArray = [];
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new ScienceParticle());
-            }
-        }
-        setupParticles();
-
-        // Connect chemical nodes using modern alpha line mechanics
-        function connectNodes() {
-            let maxDistance = 140;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let dx = particlesArray[a].x - particlesArray[b].x;
-                    let dy = particlesArray[a].y - particlesArray[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        let opacity = (1 - (distance / maxDistance)) * 0.12;
-                        ctx.strokeStyle = `rgba(0, 242, 254, ${opacity})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        // Loop animation ticks
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
+            
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.2)';
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
             }
-            connectNodes();
             requestAnimationFrame(animate);
         }
         animate();
