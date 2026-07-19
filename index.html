@@ -22,6 +22,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -50,6 +51,7 @@
             padding: 20px;
         }
 
+        /* Header & Logo */
         header {
             display: flex;
             justify-content: space-between;
@@ -60,17 +62,22 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             margin-bottom: 40px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 24px;
+            gap: 12px;
+            font-size: 26px;
             font-weight: 800;
+            letter-spacing: 1px;
             background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
         }
 
         nav ul {
@@ -108,20 +115,41 @@
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
         }
 
+        /* Sections General */
+        section {
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
         .hero-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
             padding: 40px 20px;
         }
 
         @media (max-width: 768px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
             nav { display: none; }
+            .cta-buttons { justify-content: center; }
         }
 
         .hero-text h1 {
@@ -142,14 +170,7 @@
             margin-bottom: 30px;
         }
 
-        .cta-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .cta-buttons { justify-content: center; }
-        }
+        .cta-buttons { display: flex; gap: 15px; }
 
         .btn-primary {
             background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
@@ -177,6 +198,7 @@
             box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
         }
 
+        /* Profile Card */
         .profile-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -187,32 +209,18 @@
             align-items: center;
             gap: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,242,254,0.05) 0%, transparent 70%);
-            pointer-events: none;
         }
 
         .profile-img-container {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 3px solid var(--accent-cyan);
-            padding: 0;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
         }
 
         .profile-img-container img {
@@ -221,18 +229,9 @@
             object-fit: cover;
         }
 
-        .profile-info h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-
-        .profile-info p {
-            color: var(--accent-cyan);
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
+        .profile-info h3 { font-size: 24px; margin-bottom: 5px; }
+        .profile-info p { color: var(--accent-cyan); font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+        
         .tag {
             background: rgba(0, 242, 254, 0.1);
             color: var(--accent-cyan);
@@ -242,6 +241,122 @@
             display: inline-block;
             border: 1px solid rgba(0, 242, 254, 0.2);
         }
+
+        /* Grid Layout for Courses & Notes */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.02);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i { color: var(--accent-cyan); }
+        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+
+        /* Pakistani Students Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            height: 200px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(5, 8, 17, 0.9));
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Contact Footer Form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container { grid-template-columns: 1fr; }
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info p i { color: var(--accent-cyan); }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
@@ -249,16 +364,19 @@
     <canvas id="bg-canvas"></canvas>
 
     <div class="app-container">
+        <!-- Header / Navigation -->
         <header>
             <div class="logo">
                 <i class="fa-solid fa-flask-vial"></i> APEX CHEMISTRY
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Notes</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/xxxxxxxxxx" class="btn-whatsapp" target="_blank">
@@ -266,13 +384,14 @@
             </a>
         </header>
 
-        <section class="hero-section">
+        <!-- Home / Hero Section -->
+        <section id="home" class="hero-section">
             <div class="hero-text">
                 <h1>Master Chemistry <br>with <span>Confidence</span></h1>
                 <p>Concept-Based Chemistry Learning perfectly structured for Board and Competitive Examinations.</p>
                 <div class="cta-buttons">
-                    <a href="#" class="btn-primary">Explore Courses</a>
-                    <a href="#" class="btn-secondary">Free Notes</a>
+                    <a href="#courses" class="btn-primary">Explore Courses</a>
+                    <a href="#notes" class="btn-secondary">Free Notes</a>
                 </div>
             </div>
 
@@ -287,8 +406,104 @@
                 </div>
             </div>
         </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">About Apex Academy</h2>
+            <p style="line-height: 1.8; color: var(--text-muted); text-align: center; max-width: 800px; margin: 0 auto;">
+                Apex Academy Chemistry is dedicated to providing high-quality, concept-based education. Led by Sir Nasarullah, our mission is to simplify complex chemical equations, reaction mechanisms, and core concepts, enabling students to secure top grades in their academic journeys.
+            </p>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses">
+            <h2 class="section-title">Our Featured Courses</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3><i class="fa-solid fa-atom"></i> Matric Chemistry</h3>
+                    <p>Complete preparation for 9th and 10th grade boards with comprehensive conceptual clarity, numerical solving techniques, and chapter-wise tests.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-dna"></i> Intermediate Chemistry</h3>
+                    <p>In-depth coverage of Organic, Inorganic, and Physical Chemistry tailored specifically for 11th and 12th grade Sindh and Federal board exams.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-vial-circle-check"></i> Competitive Test Prep</h3>
+                    <p>Specialized coaching and multiple-choice question sessions designed for engineering and medical college entry tests (MDCAT/ECAT).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes">
+            <h2 class="section-title">Study Resources & Notes</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3><i class="fa-regular fa-file-pdf"></i> Chapter-wise PDF Notes</h3>
+                    <p>Beautifully structured, easy-to-understand chemistry notes with complete definitions, mechanisms, and important long/short questions.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-clipboard-list"></i> Past Paper Solutions</h3>
+                    <p>Step-by-step solved papers from previous board exams to help you understand the exact paper pattern and scoring criteria.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pakistani Students Gallery Section -->
+        <section id="gallery">
+            <h2 class="section-title">Student Gallery & Activities</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=500" alt="Students in Classroom">
+                    <div class="gallery-overlay">Interactive Classroom Lecture</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=500" alt="Chemistry Lab Test">
+                    <div class="gallery-overlay">Practical Chemistry Lab Sessions</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=500" alt="Student Studying">
+                    <div class="gallery-overlay">Board Exam Preparation Groups</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=500" alt="Successful Students">
+                    <div class="gallery-overlay">Our Bright & Successful High Achievers</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 20px;">Contact Information</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Karachi, Sindh, Pakistan</p>
+                    <p><i class="fa-solid fa-envelope"></i> contact@apexchemistry.com</p>
+                    <p><i class="fa-solid fa-phone"></i> +92 XXX XXXXXXX</p>
+                    <p style="margin-top: 20px; color: var(--text-muted);">Have questions or want to register for upcoming batches? Drop us a message or click the WhatsApp button to connect instantly.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="border: none; cursor: pointer; width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 Apex Academy Chemistry. All Rights Reserved. Powered by Scientific Excellence Society Theme.
+        </footer>
     </div>
 
+    <!-- Scientific Particle Network Canvas Script -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -301,7 +516,7 @@
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 70; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -313,8 +528,8 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
             ctx.fillStyle = 'rgba(0, 242, 254, 0.2)';
+            
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
                 ctx.beginPath();
