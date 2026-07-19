@@ -6,385 +6,318 @@
     <title>Apex Academy Chemistry | Sir Nasarullah</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Modern SES (Tailwind Slate) Color Palette */
         :root {
-            /* SES Inspired Color Palette (No solid black) */
-            --bg-base: #0a1128;
-            --gradient-ses: linear-gradient(135deg, #0a1128 0%, #101f42 50%, #070c1e 100%);
-            --accent-cyan: #00f2fe;
-            --accent-blue: #0072ff;
-            --accent-purple: #7f00ff;
-            --text-light: #e2e8f0;
+            --bg-slate: #020617; /* Deep Slate Background */
+            --bg-card: rgba(15, 23, 42, 0.6); /* Translucent Card */
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --glass-card: rgba(16, 29, 66, 0.55);
-            --glass-border: rgba(0, 242, 254, 0.2);
-            --neon-glow: 0 0 20px rgba(0, 242, 254, 0.4);
+            --primary-cyan: #06b6d4;
+            --primary-blue: #3b82f6;
+            --cyan-glow: rgba(6, 182, 212, 0.4);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             scroll-behavior: smooth;
         }
 
         body {
-            background: var(--gradient-ses);
-            color: var(--text-light);
+            background-color: var(--bg-slate);
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* SES Style Grid Overlay & Background Canvas */
-        .bg-grid {
+        /* SES Style Ambient Background Orbs */
+        .ambient-orb {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 1;
-            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out;
+        }
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--primary-blue);
+            top: -100px; left: -100px;
+        }
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: var(--primary-cyan);
+            bottom: -200px; right: -150px;
+            animation-delay: -10s;
+        }
+        .orb-3 {
+            width: 300px; height: 300px;
+            background: rgba(139, 92, 246, 0.3);
+            top: 40%; left: 50%;
+            animation-delay: -5s;
         }
 
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Announcement Ticker Ticker */
-        .announcement-bar {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            padding: 8px 0;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
-            position: relative;
-            z-index: 110;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
-        }
-
-        .ticker-text {
-            display: inline-block;
-            white-space: nowrap;
-            padding-left: 100%;
-            animation: ticker 25s linear infinite;
-        }
-
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -50px); }
+            66% { transform: translate(-30px, 50px); }
         }
 
         .app-container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Navigation Header */
+        /* Minimalist Modern Navigation */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 30px;
-            background: var(--glass-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            margin-bottom: 40px;
+            padding: 20px 30px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            margin-top: 20px;
+            margin-bottom: 50px;
             position: sticky;
             top: 20px;
             z-index: 100;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5));
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 24px;
-        }
-
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--accent-cyan);
-            text-shadow: var(--neon-glow);
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 30px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
-        }
-
-        /* Sections Structural Style */
-        section {
-            padding: 60px 35px;
-            margin-bottom: 40px;
-            background: var(--glass-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
-        .section-title {
-            font-size: 34px;
-            margin-bottom: 40px;
-            text-align: center;
-            font-weight: 800;
-            background: linear-gradient(45deg, #00f2fe, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
-        }
-
-        /* Hero Landing */
-        .hero-section {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-            background: transparent;
-            border: none;
-            backdrop-filter: none;
-            padding: 20px 10px;
-            box-shadow: none;
-        }
-
-        @media (max-width: 900px) {
-            .hero-section { grid-template-columns: 1fr; text-align: center; }
-            nav { display: none; }
-            .cta-buttons { justify-content: center; }
-            .profile-card { flex-direction: column; text-align: center; margin: 0 auto; }
-            .registration-container { grid-template-columns: 1fr !with-card; }
-        }
-
-        .hero-text h1 {
-            font-size: 54px;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            font-weight: 800;
-        }
-
-        .hero-text h1 span {
-            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-        }
-
-        .hero-text p {
-            color: var(--text-muted);
-            font-size: 19px;
-            margin-bottom: 35px;
-            line-height: 1.6;
-        }
-
-        .cta-buttons { display: flex; gap: 15px; }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
-            color: #0a1128;
-            padding: 14px 32px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--accent-cyan);
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-        }
-
-        /* Clean Profile Card (No SES text) */
-        .profile-card {
-            background: rgba(16, 35, 78, 0.85);
-            border: 2px solid var(--accent-cyan);
-            border-radius: 24px;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
-            transition: 0.3s;
-        }
-
-        .profile-card:hover {
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.4);
-        }
-
-        .profile-img-container {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-cyan);
-            overflow: hidden;
-            box-shadow: 0 0 15px var(--accent-cyan);
-        }
-
-        .profile-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-info h3 { font-size: 24px; margin-bottom: 4px; font-weight: 800; }
-        .profile-info p { color: var(--accent-cyan); font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-        
-        .tag {
-            background: rgba(0, 242, 254, 0.1);
-            color: white;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1px solid var(--accent-cyan);
-        }
-
-        /* Cards Grid Config */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 30px;
-            transition: 0.4s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);
-        }
-
-        .card h3 {
-            margin-bottom: 14px;
             font-size: 22px;
-            color: var(--text-light);
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .card h3 i { color: var(--accent-cyan); }
-        .card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
-
-        /* Timetable Schedule Table Features */
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: rgba(255,255,255,0.01);
-            border-radius: 12px;
-            overflow: hidden;
+        .logo i {
+            color: var(--primary-cyan);
+            font-size: 24px;
         }
 
-        .schedule-table th, .schedule-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        .logo .fw-light {
+            font-weight: 300;
+            color: var(--text-muted);
         }
 
-        .schedule-table th {
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--accent-cyan);
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-whatsapp:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* General Section Styling */
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
             font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
         }
 
-        .schedule-table tr:hover td {
-            background: rgba(0, 242, 254, 0.03);
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Registration Desk Layout Block (Form + Scan QR) */
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
+            nav { display: none; }
+            .hero-text h1 { font-size: 42px !important; }
+            .registration-container { grid-template-columns: 1fr !important; }
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(to right, var(--primary-cyan), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: black;
+            padding: 14px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Teacher Profile Card */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-img-wrapper {
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
+            margin-bottom: 20px;
+        }
+
+        .profile-img-wrapper img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-slate);
+        }
+
+        /* Features / Why Choose Us Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-cyan);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .feature-icon {
+            width: 50px; height: 50px;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-cyan);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 { font-size: 20px; margin-bottom: 10px; color: white; }
+        .feature-card p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+
+        /* Courses Grid (Strictly upto 12th) */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* Registration Dual Box */
         .registration-container {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 40px;
-            align-items: center;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 30px;
         }
 
-        @media (max-width: 800px) {
-            .registration-container { grid-template-columns: 1fr; }
-        }
-
-        .registration-form-block {
-            background: rgba(255,255,255,0.01);
-            padding: 30px;
+        .reg-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
         }
 
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-muted); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 14px; }
         .form-group input, .form-group select {
             width: 100%;
             padding: 14px;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             color: white;
             outline: none;
@@ -392,399 +325,211 @@
         }
 
         .form-group input:focus, .form-group select:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            border-color: var(--primary-cyan);
         }
 
-        .scan-box-wrapper {
+        /* Dynamic QR Code Box */
+        .qr-box {
             text-align: center;
-            padding: 30px;
-            background: rgba(0, 242, 254, 0.03);
-            border: 2px dashed var(--accent-cyan);
-            border-radius: 20px;
-            box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.05);
-        }
-
-        .qr-placeholder {
-            width: 180px;
-            height: 180px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 12px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
-            border: 4px solid #fff;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 20px;
         }
 
-        .qr-placeholder i { font-size: 100px; color: #0a1128; }
-
-        /* Gallery System Layout */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            height: 210px;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
-        }
-
-        .gallery-item:hover img { transform: scale(1.06); }
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(transparent, rgba(10, 17, 40, 0.95));
-            color: var(--text-light);
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        /* Contact Box Elements */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 25px;
-            border-radius: 16px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .contact-card:hover {
-            border-color: var(--accent-cyan);
-            transform: translateY(-4px);
-        }
-
-        .contact-card i {
-            font-size: 32px;
-            color: var(--accent-cyan);
+        .qr-image {
+            width: 180px; height: 180px;
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            margin-top: 20px;
             margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px var(--accent-cyan));
         }
 
-        .contact-card a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
+        .qr-image img {
+            width: 100%; height: 100%;
         }
 
-        .contact-card a:hover { color: var(--accent-cyan); }
-
+        /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
+            border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 14px;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 40px;
-            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
-    <!-- SES Inspired Background Grid System Layer -->
-    <div class="bg-grid"></div>
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- News and Announcements Bar -->
-    <div class="announcement-bar">
-        <div class="ticker-text">
-            🔥 Admissions Open for New Session 2026! | 🚀 Matric, Intermediate & Test Preparation Batches Starting Soon! | 📚 Free Chapter-Wise PDF Notes Available for Download!
-        </div>
-    </div>
+    <!-- Ambient Background Effects -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
 
     <div class="app-container">
-        <!-- Site Header Menu Layout -->
+        
+        <!-- Header -->
         <header>
             <div class="logo">
-                <i class="fa-solid fa-flask-vial"></i> APEX ACADEMY
+                <i class="fa-solid fa-atom"></i> APEX <span class="fw-light">ACADEMY</span>
             </div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
                     <li><a href="#courses">Courses</a></li>
-                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#notes">Notes</a></li>
                     <li><a href="#register">Register</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <a href="https://wa.me/923423672471" class="btn-whatsapp" target="_blank">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp Chat
+                <i class="fa-brands fa-whatsapp"></i> Chat Now
             </a>
         </header>
 
-        <!-- Home Section Frame -->
+        <!-- Hero Section -->
         <section id="home" class="hero-section">
             <div class="hero-text">
                 <h1>Master Chemistry <br>with <span>Confidence</span></h1>
-                <p>Concept-Based Chemistry Learning perfectly structured for Board and Competitive Examinations.</p>
-                <div class="cta-buttons">
-                    <a href="#register" class="btn-primary">Register Now</a>
-                    <a href="#courses" class="btn-secondary">View Courses</a>
-                </div>
+                <p>Concept-based chemistry learning designed exclusively for 9th, 10th, 11th, and 12th-grade board examinations.</p>
+                <a href="#register" class="btn-primary">Admissions Open</a>
             </div>
 
-            <!-- Dashboard Custom Profile Component (No SES Text) -->
             <div class="profile-card">
-                <div class="profile-img-container">
+                <div class="profile-img-wrapper">
                     <img src="https://i.ibb.co/ksYpD8Sf/image.jpg" alt="Sir Nasarullah">
                 </div>
-                <div class="profile-info">
-                    <h3>Sir Nasarullah</h3>
-                    <p>BS Chemistry | Instructor</p>
-                    <span class="tag"><i class="fa-solid fa-graduation-cap"></i> Apex Academy</span>
+                <h3 style="font-size: 24px; color: white; margin-bottom: 5px;">Sir Nasarullah</h3>
+                <p style="color: var(--primary-cyan); font-weight: 500; font-size: 15px; margin-bottom: 15px;">BS Chemistry | Expert Instructor</p>
+                <div style="display: flex; gap: 10px;">
+                    <a href="mailto:nasarullahboohar804@gmail.com" style="color: var(--text-muted); font-size: 20px;"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="tel:+923423672471" style="color: var(--text-muted); font-size: 20px;"><i class="fa-solid fa-phone"></i></a>
                 </div>
             </div>
         </section>
 
-        <!-- About Academic Profile -->
-        <section id="about">
-            <h2 class="section-title">About Apex Academy</h2>
-            <p style="line-height: 1.9; color: var(--text-muted); text-align: center; max-width: 900px; margin: 0 auto; font-size: 16px;">
-                Apex Academy Chemistry is dedicated to providing high-quality, concept-based education. Led by Sir Nasarullah, our mission is to simplify complex chemical equations, reaction mechanisms, and core concepts, enabling students to secure top grades in their academic journeys.
-            </p>
+        <!-- Why Choose Us Features -->
+        <section id="features">
+            <div class="section-header">
+                <h2>Why Choose Apex Academy?</h2>
+                <p>We provide a modern educational environment focused on true conceptual understanding rather than rote memorization.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3>Concept-Based Learning</h3>
+                    <p>Complex chemical equations and mechanisms simplified through real-world examples and deep logic.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-file-pen"></i></div>
+                    <h3>Weekly Assessment</h3>
+                    <p>Regular chapter-wise testing system designed exactly according to board exam patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                    <h3>100% Success Ratio</h3>
+                    <p>Our students consistently secure top grades and perfect scores in chemistry board examinations.</p>
+                </div>
+            </div>
         </section>
 
-        <!-- Main Course Distribution Grid System -->
+        <!-- Courses Offered -->
         <section id="courses">
-            <h2 class="section-title">Our Featured Courses</h2>
-            <div class="grid-container">
-                <div class="card">
-                    <h3><i class="fa-solid fa-atom"></i> Matric Chemistry</h3>
-                    <p>Complete preparation for 9th and 10th grade boards with comprehensive conceptual clarity, numerical solving techniques, and chapter-wise tests.</p>
+            <div class="section-header">
+                <h2>Our Specialized Courses</h2>
+                <p>Focused strictly on secondary and higher secondary education.</p>
+            </div>
+            <div class="courses-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--primary-blue);">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3>Matric (9th & 10th)</h3>
+                    <p>Complete syllabus coverage, numerical problem solving, and extensive past paper practice for matriculation boards.</p>
                 </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-dna"></i> Intermediate Chemistry</h3>
-                    <p>In-depth coverage of Organic, Inorganic, and Physical Chemistry tailored specifically for 11th and 12th grade Sindh and Federal board exams.</p>
-                </div>
-                <div class="card">
-                    <h3><i class="fa-solid fa-vial-circle-check"></i> Competitive Test Prep</h3>
-                    <p>Specialized coaching and multiple-choice question sessions designed for engineering and medical college entry tests (MDCAT/ECAT).</p>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--primary-blue);">
+                        <i class="fa-solid fa-microscope"></i>
+                    </div>
+                    <h3>Intermediate (11th & 12th)</h3>
+                    <p>Deep dive into Physical, Organic, and Inorganic Chemistry tailored for FSc pre-medical and pre-engineering students.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Academic Batch Timing Schedule Matrix Feature -->
-        <section id="schedule">
-            <h2 class="section-title">Batch Schedule & Timings</h2>
-            <div style="overflow-x: auto;">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Course Level</th>
-                            <th>Days Config</th>
-                            <th>Timing Class</th>
-                            <th>Status Module</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Matric Classes (9th / 10th)</strong></td>
-                            <td>Monday, Wednesday, Friday</td>
-                            <td>04:00 PM - 05:30 PM</td>
-                            <td style="color: var(--accent-cyan);">Admissions Open</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Intermediate (11th / 12th)</strong></td>
-                            <td>Tuesday, Thursday, Saturday</td>
-                            <td>05:30 PM - 07:00 PM</td>
-                            <td style="color: var(--accent-cyan);">Admissions Open</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MDCAT / ECAT Prep Desk</strong></td>
-                            <td>Sunday Special Sessions</td>
-                            <td>10:00 AM - 01:00 PM</td>
-                            <td style="color: var(--accent-cyan);">New Batch Starting</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- PDF Notes Soon -->
+        <section id="notes">
+            <div class="reg-box" style="text-align: center; border-color: rgba(6, 182, 212, 0.3); background: rgba(6, 182, 212, 0.05);">
+                <i class="fa-solid fa-file-pdf" style="font-size: 50px; color: var(--primary-cyan); margin-bottom: 20px;"></i>
+                <h2 style="font-size: 28px; color: white; margin-bottom: 10px;">Free Study Materials & PDF Notes</h2>
+                <p style="color: var(--text-muted); font-size: 16px; margin-bottom: 20px;">Comprehensive chapter-wise notes and solved past papers are being compiled.</p>
+                <span style="background: var(--primary-cyan); color: black; padding: 6px 16px; border-radius: 30px; font-weight: 600; font-size: 14px;">Available Soon</span>
             </div>
         </section>
 
-        <!-- Dual Mode Registration Desk Module (Form + QR Code Scan Desk) -->
+        <!-- Dynamic Registration System -->
         <section id="register">
-            <h2 class="section-title">Registration Desk</h2>
+            <div class="section-header">
+                <h2>Registration Desk</h2>
+                <p>Register online via the form or scan the QR code to connect immediately.</p>
+            </div>
+            
             <div class="registration-container">
-                
-                <!-- Online Form Element Slot -->
-                <div class="registration-form-block">
-                    <h3 style="margin-bottom: 20px; color: var(--accent-cyan); font-weight: 700;">Fill Admission Form</h3>
-                    <form onsubmit="event.preventDefault(); alert('Registration Request Submitted Successfully! Sir Nasarullah will contact you soon.');">
+                <!-- Working Form linked to your email -->
+                <div class="reg-box">
+                    <h3 style="color: white; font-size: 22px; margin-bottom: 25px;">Admission Form</h3>
+                    <!-- FORMSUBMIT BACKEND APPLIED HERE -->
+                    <form action="https://formsubmit.co/nasarullahboohar804@gmail.com" method="POST">
+                        <!-- Success Page settings -->
+                        <input type="hidden" name="_subject" value="New Admission Form from Apex Academy!">
+                        <input type="hidden" name="_captcha" value="false">
+                        
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" placeholder="Enter student name" required>
+                            <label>Student Full Name</label>
+                            <input type="text" name="Student_Name" placeholder="Enter full name" required>
                         </div>
                         <div class="form-group">
-                            <label>Contact Number (WhatsApp)</label>
-                            <input type="tel" placeholder="e.g. 03423672471" required>
+                            <label>Contact Number / WhatsApp</label>
+                            <input type="tel" name="Contact_Number" placeholder="e.g. 03423672471" required>
                         </div>
                         <div class="form-group">
-                            <label>Select Course Level</label>
-                            <select required>
-                                <option value="">Choose your batch...</option>
-                                <option value="matric">Matric (9th / 10th)</option>
-                                <option value="inter">Intermediate (11th / 12th)</option>
-                                <option value="entry">MDCAT / ECAT Entrance</option>
+                            <label>Select Class</label>
+                            <select name="Class_Enrolled" required>
+                                <option value="">Choose a class...</option>
+                                <option value="9th Grade">9th Grade (Chemistry)</option>
+                                <option value="10th Grade">10th Grade (Chemistry)</option>
+                                <option value="11th Grade">11th Grade (FSc Part 1)</option>
+                                <option value="12th Grade">12th Grade (FSc Part 2)</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn-primary" style="border: none; width: 100%; cursor: pointer; margin-top: 10px;">Submit Form</button>
+                        <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">Submit Application</button>
                     </form>
                 </div>
 
-                <!-- QR Code Scan Section Panel -->
-                <div class="scan-box-wrapper">
-                    <h3 style="color: #fff; font-weight: 700; margin-bottom: 10px;">Scan to Register Quickly</h3>
-                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">Scan this QR code using WhatsApp or camera scanner to directly chat or connect with us instantly.</p>
-                    <div class="qr-placeholder">
-                        <!-- Icon Placeholder for QR. Replace image source when needed -->
-                        <i class="fa-solid fa-qrcode"></i>
+                <!-- API Generated Live QR Code for WhatsApp -->
+                <div class="qr-box">
+                    <h3 style="color: white; font-size: 20px;">Scan to WhatsApp</h3>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-top: 10px;">Scan using your phone camera to chat directly with Sir Nasarullah.</p>
+                    
+                    <div class="qr-image">
+                        <!-- Live API generating QR for your specific number -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://wa.me/923423672471" alt="WhatsApp QR Code">
                     </div>
-                    <span style="font-size: 12px; letter-spacing: 1px; font-weight: bold; color: var(--accent-cyan);">APEX DESK SCANNER</span>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Student Gallery Showcase Panel Area -->
-        <section id="gallery">
-            <h2 class="section-title">Student Gallery & Activities</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=500" alt="Students in Classroom">
-                    <div class="gallery-overlay">Interactive Classroom Lecture</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=500" alt="Chemistry Lab Test">
-                    <div class="gallery-overlay">Practical Chemistry Lab Sessions</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=500" alt="Student Studying">
-                    <div class="gallery-overlay">Board Exam Preparation Groups</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=500" alt="Successful Students">
-                    <div class="gallery-overlay">Our Bright & Successful High Achievers</div>
+                    
+                    <p style="color: var(--primary-cyan); font-weight: 600; font-size: 14px;">+92 342 3672471</p>
                 </div>
             </div>
         </section>
 
-        <!-- Direct Identity Contacts Base Information Section -->
-        <section id="contact">
-            <h2 class="section-title">Direct Connect Desk</h2>
-            <div class="contact-container">
-                
-                <div class="contact-card">
-                    <i class="fa-solid fa-phone-volume"></i>
-                    <h4>Call Support</h4>
-                    <p style="margin-top: 8px;"><a href="tel:+923423672471">+92 342 3672471</a></p>
-                </div>
-
-                <div class="contact-card">
-                    <i class="fa-brands fa-whatsapp-square"></i>
-                    <h4>WhatsApp Hub</h4>
-                    <p style="margin-top: 8px;"><a href="https://wa.me/923423672471" target="_blank">Chat with Instructor</a></p>
-                </div>
-
-                <div class="contact-card">
-                    <i class="fa-solid fa-envelope-open-text"></i>
-                    <h4>Email Dispatch</h4>
-                    <p style="margin-top: 8px;"><a href="mailto:nasarullahboohar804@gmail.com">nasarullahboohar804@gmail.com</a></p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Site Base Footer -->
         <footer>
-            &copy; 2026 Apex Academy Chemistry. All Rights Reserved.
+            &copy; 2026 Apex Academy Chemistry. Focused on Educational Excellence.
         </footer>
     </div>
 
-    <!-- SES Inspired Smooth Floating Organic Molecule Network Script -->
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const particles = [];
-        const maxParticles = 65;
-        const connectionDist = 120;
-
-        for (let i = 0; i < maxParticles; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 0.5,
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: (Math.random() - 0.5) * 0.3
-            });
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
-                ctx.fill();
-
-                p.x += p.speedX;
-                p.y += p.speedY;
-
-                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dx = p.x - p2.x;
-                    const dy = p.y - p2.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < connectionDist) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.12 * (1 - dist / connectionDist)})`;
-                        ctx.lineWidth = 0.7;
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
 </body>
 </html>
